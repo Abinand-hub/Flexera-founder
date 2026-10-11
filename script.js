@@ -1,7 +1,7 @@
 /**
- * Flexera Founder Roundtable
+ * Fluxera Founder Roundtable
  * Interactive Logic:
- *  1. Countdown Timer (Saturday, October 17, 2026 · 5:00 AM)
+ *  1. Countdown Timer (Friday, October 16, 2026 · 4:30 PM PDT - San Francisco Time)
  *  2. Interactive Outcome Comparison Tabs ("Without" vs "With")
  *  3. Eased Smooth Scroll Animation (with sticky header offset & cubic easing)
  *  4. Scroll Reveal Animations (IntersectionObserver for .rv elements)
@@ -10,9 +10,9 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // -------------------------------------------------------------
-  // 1. Countdown Timer (Saturday, October 17, 2026 · 5:00 AM)
+  // 1. Countdown Timer (Friday, October 16, 2026 · 4:30 PM PDT - San Francisco Time)
   // -------------------------------------------------------------
-  const targetDate = new Date(2026, 9, 17, 5, 0, 0).getTime();
+  const targetDate = new Date('2026-10-16T16:30:00-07:00').getTime();
 
   function updateCountdown() {
     const now = Date.now();

@@ -34,8 +34,8 @@
     <circle cx="41" cy="44" r="1.8" fill="#FFFFFF"/>
   </g>
 
-  <!-- Wordmark: FLEXERA -->
-  <text x="64" y="36" fill="#FFFFFF" font-family="'Inter', system-ui, -apple-system, sans-serif" font-size="20" font-weight="800" letter-spacing="0.18em">FLEXERA</text>
+  <!-- Wordmark: FLUXERA -->
+  <text x="64" y="36" fill="#FFFFFF" font-family="'Inter', system-ui, -apple-system, sans-serif" font-size="20" font-weight="800" letter-spacing="0.18em">FLUXERA</text>
 
   <!-- Subtitle / Tagline -->
   <text x="65" y="49" fill="#91A5C4" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="600" letter-spacing="0.14em">CONTINUITY &amp; RECOVERY</text>
