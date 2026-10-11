@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flexera Founder Roundtable — Work Continuity &amp; Compute Cost Recovery</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#080F1D}
+html{scroll-behavior:smooth}
+a{color:#42D9F5}
+a:hover{color:#26C8E8}
+input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px solid #42D9F5;outline-offset:3px}
+input::placeholder,textarea::placeholder{color:#91A5C4}
+
+/* ---------- keyframes ---------- */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(60px,40px) scale(1.15)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes shine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes sweep{from{left:-60%}to{left:140%}}
+@keyframes btnglow{0%,100%{box-shadow:0 0 0 0 rgba(66,217,245,.5)}50%{box-shadow:0 0 0 14px rgba(66,217,245,0)}}
+@keyframes ring{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+@keyframes pkt{0%{left:-20px;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:100%;opacity:0}}
+@keyframes pktv{0%{top:-8px;opacity:0}20%{opacity:1}80%{opacity:1}100%{top:100%;opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes grow{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+@keyframes rise{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+@keyframes shrinkbar{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.3)}}
+@keyframes cpfill{0%,100%{background:#0B1426;box-shadow:none}25%,55%{background:#42D9F5;box-shadow:0 0 14px rgba(66,217,245,.7)}}
+@keyframes scan{0%{top:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+@keyframes playhead{from{left:0}to{left:100%}}
+@keyframes rv{from{opacity:0;transform:translateY(44px)}to{opacity:1;transform:none}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ---------- story loop (10s): run -> fail -> resume -> done ---------- */
+@keyframes n3{
+ 0%,30%{border-color:#42D9F5;background:rgba(66,217,245,.12);transform:translateX(0)}
+ 33%{border-color:#FF8A7A;background:rgba(255,138,122,.16)}
+ 34%{transform:translateX(-5px)}35%{transform:translateX(5px)}36%{transform:translateX(-3px)}37%{transform:translateX(0)}
+ 38%,58%{border-color:#FF8A7A;background:rgba(255,138,122,.16)}
+ 62%,100%{border-color:#42D9F5;background:rgba(66,217,245,.12)}}
+@keyframes n4{0%,74%{border-color:#23334A;background:#0B1426}78%,100%{border-color:#42D9F5;background:rgba(66,217,245,.12)}}
+@keyframes stA{0%,28%{opacity:1}32%,100%{opacity:0}}
+@keyframes stB{0%,32%{opacity:0}36%,56%{opacity:1}60%,100%{opacity:0}}
+@keyframes stC{0%,60%{opacity:0}64%,72%{opacity:1}76%,100%{opacity:0}}
+@keyframes stD{0%,74%{opacity:0}78%,96%{opacity:1}100%{opacity:0}}
+@keyframes stW{0%,72%{opacity:1}76%,100%{opacity:0}}
+@keyframes ck{0%,36%{opacity:0;transform:translateY(10px)}42%,94%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes pb{0%{width:0}30%{width:66%}58%{width:66%}76%{width:100%}96%{width:100%}100%{width:0}}
+
+/* ---------- classes ---------- */
+.rv{opacity:1}
+@supports (animation-timeline: view()){
+ .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
+}
+.float{animation:float 7s ease-in-out infinite}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:drift 14s ease-in-out infinite alternate}
+.gridbg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(35,51,74,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(35,51,74,.5) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 40%,#000 30%,transparent 100%);mask-image:radial-gradient(ellipse 80% 70% at 50% 40%,#000 30%,transparent 100%)}
+.gtxt{background:linear-gradient(90deg,#42D9F5,#FFFFFF,#42D9F5);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:shine 5s linear infinite}
+.mono{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+.btn{position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease,background .2s ease;cursor:pointer}
+.btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg)}
+.btn:hover{background:#26C8E8 !important;color:#07111F !important;transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(66,217,245,.65)}
+.btn:hover::after{animation:sweep .8s ease}
+.glowbtn{animation:btnglow 2.6s ease-in-out infinite}
+.ghost{transition:border-color .2s ease,background .2s ease,transform .2s ease}
+.ghost:hover{border-color:#42D9F5 !important;background:rgba(66,217,245,.08) !important;transform:translateY(-2px)}
+.card{position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s ease,box-shadow .3s ease}
+.card:hover{transform:translateY(-8px);border-color:#42D9F5 !important;box-shadow:0 26px 60px -24px rgba(66,217,245,.4)}
+.chip{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.chip:hover{transform:translateY(-4px);border-color:#42D9F5 !important;box-shadow:0 14px 30px -14px rgba(66,217,245,.5)}
+label.opt{transition:border-color .2s ease,background .2s ease}
+label.opt:hover{border-color:#42D9F5 !important;background:rgba(66,217,245,.06) !important}
+.marq{display:flex;width:max-content;animation:marquee 34s linear infinite}
+.marqwrap{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.pk{position:absolute;top:0;width:18px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#42D9F5);animation:pkt 2.2s linear infinite}
+.pkv{position:absolute;left:-2px;top:0;width:6px;height:6px;border-radius:50%;background:#42D9F5;box-shadow:0 0 10px #42D9F5;animation:pktv 1.6s linear infinite}
+.n3{animation:n3 10s linear infinite}
+.n4{animation:n4 10s linear infinite}
+.st{position:absolute;right:0;top:0;white-space:nowrap;opacity:0;font-size:12px}
+.stA{animation:stA 10s linear infinite;color:#42D9F5}
+.stB{animation:stB 10s linear infinite;color:#FF8A7A}
+.stC{animation:stC 10s linear infinite;color:#42D9F5}
+.stD{animation:stD 10s linear infinite;color:#42D9F5}
+.stW{animation:stW 10s linear infinite;color:#91A5C4;opacity:1}
+.ckchip{opacity:0;animation:ck 10s linear infinite}
+.pbfill{height:100%;border-radius:999px;background:linear-gradient(90deg,#26C8E8,#42D9F5);animation:pb 10s ease-in-out infinite}
+.blk{flex:1 1 130px;min-height:60px;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:0 12px;box-sizing:border-box;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:500;text-align:center;transform-origin:left;animation:grow .7s cubic-bezier(.2,.8,.2,1) both}
+.bar{transform-origin:bottom;border-radius:6px 6px 2px 2px}
+.shr{animation:shrinkbar 3.2s ease-in-out infinite}
+.rse{animation:rise 2.4s cubic-bezier(.2,.8,.2,1) infinite alternate}
+.cp{width:18px;height:18px;border-radius:50%;border:2px solid #42D9F5;background:#0B1426;flex:0 0 auto;animation:cpfill 4s ease-in-out infinite}
+.spin{animation:spin 9s linear infinite}
+.ringp{position:absolute;inset:0;border-radius:12px;border:2px solid #42D9F5;animation:ring 2.2s ease-out infinite}
+.reportcard{transition:transform .5s cubic-bezier(.2,.8,.2,1);transform:perspective(1400px) rotateY(-9deg) rotateX(4deg)}
+.reportcard:hover{transform:perspective(1400px) rotateY(0deg) rotateX(0deg) translateY(-6px)}
+.scanline{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#42D9F5,transparent);box-shadow:0 0 18px #42D9F5;animation:scan 4.5s ease-in-out infinite}
+.playhead{position:absolute;top:-6px;width:3px;height:22px;border-radius:2px;background:#FFFFFF;box-shadow:0 0 12px #42D9F5;animation:playhead 12s linear infinite}
+.livedot{width:8px;height:8px;border-radius:50%;background:#42D9F5;box-shadow:0 0 10px #42D9F5;animation:blink 1.4s ease-in-out infinite}
+.fieldglow{background:linear-gradient(120deg,#42D9F5,#23334A,#26C8E8,#23334A,#42D9F5);background-size:300% 300%;animation:shine 8s linear infinite}
+
+/* ---------- design backgrounds ---------- */
+@keyframes beam{from{transform:translateX(-8%) rotate(-18deg)}to{transform:translateX(8%) rotate(-18deg)}}
+@keyframes diam{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(225deg) translateY(-18px)}}
+.spinslow{animation:spin 70s linear infinite}
+.spinrev{animation:spin 90s linear infinite reverse}
+.beam{position:absolute;width:140%;height:150px;left:-20%;background:linear-gradient(90deg,transparent,rgba(66,217,245,.2),transparent);filter:blur(26px);pointer-events:none;animation:beam 9s ease-in-out infinite alternate}
+.diam{position:absolute;border:1px solid rgba(66,217,245,.42);pointer-events:none;animation:diam 12s ease-in-out infinite}
+.dotbg{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(66,217,245,.30) 1.2px,transparent 1.5px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 75% 85% at 25% 40%,#000 20%,transparent 100%);mask-image:radial-gradient(ellipse 75% 85% at 25% 40%,#000 20%,transparent 100%)}
+.stripebg{position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(135deg,rgba(66,217,245,.07) 0 1px,transparent 1px 22px);-webkit-mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent)}
+.lightdots{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(11,20,38,.16) 1.3px,transparent 1.6px);background-size:26px 26px;-webkit-mask-image:linear-gradient(180deg,transparent,#000 25%,#000 75%,transparent);mask-image:linear-gradient(180deg,transparent,#000 25%,#000 75%,transparent)}
+.blob{position:absolute;border-radius:50%;pointer-events:none;animation:drift 16s ease-in-out infinite alternate}
+@media (max-width:820px){.navlinks{display:none !important}}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}.rv{opacity:1 !important;transform:none !important}.st,.ckchip{opacity:1 !important}.stA,.stB,.stC,.stW{display:none}}
+</style>
+</helmet>
+
+<div style="width:100%;background:#080F1D;color:#FFFFFF;font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden">
+
+  <!-- NAV -->
+  <div style="position:sticky;top:0;z-index:50;background:rgba(8,15,29,.74);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid rgba(35,51,74,.8)">
+    <div style="max-width:1200px;margin:0 auto;padding:12px 32px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:20px">
+      <a href="#top" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:#FFFFFF">
+        <span style="width:34px;height:34px;border-radius:10px;background:#101E32;border:1px solid #23334A;display:flex;align-items:center;justify-content:center">
+          <svg class="spin" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"></path><path d="M3 21v-5h5"></path></svg>
+        </span>
+        <span style="font-size:18px;font-weight:700;letter-spacing:0.16em">FLEXERA</span>
+      </a>
+      <div class="navlinks" style="display:flex;align-items:center;gap:30px;font-size:15px;font-weight:500">
+        <a href="#explore" style="color:#C0CDDF;text-decoration:none">Explore</a>
+        <a href="#report" style="color:#C0CDDF;text-decoration:none">Your report</a>
+        <a href="#agenda" style="color:#C0CDDF;text-decoration:none">Agenda</a>
+      </div>
+      <a class="btn" href="https://calendly.com/d/dvyk-74s-wyj/one-off-meeting" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;box-sizing:border-box;background:#42D9F5;color:#07111F;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none">Book your spot</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div id="top" style="position:relative;overflow:hidden;background:#0B1426;border-bottom:1px solid #23334A">
+    <div class="gridbg" aria-hidden="true"></div>
+    <div class="orb" aria-hidden="true" style="width:520px;height:520px;left:-140px;top:-120px;background:rgba(66,217,245,.22)"></div>
+    <div class="orb" aria-hidden="true" style="width:420px;height:420px;right:-100px;bottom:-140px;background:rgba(38,200,232,.16);animation-delay:-6s"></div>
+    <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;right:-300px;top:50%;margin-top:-460px;width:920px;height:920px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
+    <svg class="spinrev" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;left:-220px;bottom:-240px;width:560px;height:560px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
+    <div class="beam" aria-hidden="true" style="top:22%"></div>
+    <div class="beam" aria-hidden="true" style="top:68%;animation-delay:-4s;opacity:.7"></div>
+    <div class="diam" aria-hidden="true" style="left:6%;top:16%;width:84px;height:84px;animation-delay:0s"></div>
+    <div class="diam" aria-hidden="true" style="left:44%;top:8%;width:46px;height:46px;animation-delay:-3s"></div>
+    <div class="diam" aria-hidden="true" style="right:5%;bottom:12%;width:120px;height:120px;animation-delay:-6s"></div>
+    <div class="diam" aria-hidden="true" style="left:38%;bottom:10%;width:30px;height:30px;animation-delay:-9s"></div>
+
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:88px 32px 96px;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:72px">
+
+      <div style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:28px">
+        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:10px;padding:8px 16px;border:1px solid #23334A;border-radius:999px;background:rgba(16,30,50,.85)">
+          <span class="livedot" aria-hidden="true"></span>
+          <span class="mono" style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#C0CDDF">Private founder roundtable · Sat, Oct 17 · 5:00–5:45 AM</span>
+        </div>
+        <h1 style="margin:0;font-size:clamp(40px,6vw,76px);line-height:1.02;font-weight:700;letter-spacing:-0.035em;color:#FFFFFF">When AI Workflows Fail, Your Business Should <span class="gtxt">Keep Moving.</span></h1>
+        <p style="margin:0;font-size:21px;line-height:1.5;font-weight:500;color:#FFFFFF;max-width:600px">A private online founder roundtable for teams building AI-native software.</p>
+        <p style="margin:0;font-size:17px;line-height:1.7;color:#C0CDDF;max-width:600px">AI agents fail. Tool calls time out. Workflows get interrupted. Tasks run twice. Compute gets wasted. Join other founders to discuss how to recover interrupted work, keep services running, and lower unnecessary compute costs—without rebuilding your entire stack.</p>
+
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px">
+          <a class="btn glowbtn" href="https://calendly.com/d/dvyk-74s-wyj/one-off-meeting" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:58px;padding:0 34px;box-sizing:border-box;background:#42D9F5;color:#07111F;border-radius:12px;font-size:17px;font-weight:700;text-decoration:none">Reserve your spot <span aria-hidden="true">→</span></a>
+          <a class="ghost" href="#explore" style="display:inline-flex;align-items:center;justify-content:center;min-height:58px;padding:0 26px;box-sizing:border-box;background:transparent;border:1px solid #23334A;color:#FFFFFF;border-radius:12px;font-size:16px;font-weight:600;text-decoration:none">See what we'll cover</a>
+        </div>
+        <div style="font-size:14px;color:#91A5C4">Online · Limited invitations · Joining details are shared directly with confirmed participants.</div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">
+          <div class="mono" style="font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#91A5C4">Counting down to Saturday, October 17 · 5:00 AM</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <div style="min-width:76px;padding:12px 16px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #23334A;border-radius:14px;text-align:center"><div class="mono" style="font-size:30px;line-height:1.1;font-weight:600;color:#FFFFFF">{{days}}</div><div style="font-size:12px;color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase">Days</div></div>
+            <div style="min-width:76px;padding:12px 16px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #23334A;border-radius:14px;text-align:center"><div class="mono" style="font-size:30px;line-height:1.1;font-weight:600;color:#FFFFFF">{{hours}}</div><div style="font-size:12px;color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase">Hours</div></div>
+            <div style="min-width:76px;padding:12px 16px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #23334A;border-radius:14px;text-align:center"><div class="mono" style="font-size:30px;line-height:1.1;font-weight:600;color:#FFFFFF">{{mins}}</div><div style="font-size:12px;color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase">Min</div></div>
+            <div style="min-width:76px;padding:12px 16px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #42D9F5;border-radius:14px;text-align:center"><div class="mono" style="font-size:30px;line-height:1.1;font-weight:600;color:#42D9F5">{{secs}}</div><div style="font-size:12px;color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase">Sec</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animated workflow visual -->
+      <div style="flex:1 1 400px;min-width:0;position:relative">
+        <div aria-hidden="true" style="position:absolute;inset:-40px;background:radial-gradient(closest-side,rgba(66,217,245,.22),transparent);pointer-events:none"></div>
+        <div class="float" style="position:relative">
+          <div style="background:#101E32;border:1px solid #23334A;border-radius:20px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.8)">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;background:#0B1426;border-bottom:1px solid #23334A">
+              <div style="display:flex;gap:7px" aria-hidden="true"><span style="width:11px;height:11px;border-radius:50%;background:#23334A"></span><span style="width:11px;height:11px;border-radius:50%;background:#23334A"></span><span style="width:11px;height:11px;border-radius:50%;background:#23334A"></span></div>
+              <div class="mono" style="font-size:12px;color:#91A5C4">agent-workflow · live run</div>
+              <div style="display:flex;align-items:center;gap:8px"><span class="livedot" aria-hidden="true"></span></div>
+            </div>
+
+            <div style="padding:26px 24px 8px;display:flex;flex-direction:column">
+
+              <div style="display:flex;align-items:center;gap:16px">
+                <div style="width:42px;height:42px;border-radius:12px;border:1px solid #42D9F5;background:rgba(66,217,245,.12);display:flex;align-items:center;justify-content:center;flex:0 0 auto"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div>
+                <div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:600">Parse request</div></div>
+                <div class="mono" style="font-size:12px;color:#42D9F5">done</div>
+              </div>
+              <div style="position:relative;margin-left:20px;width:2px;height:24px;background:#23334A;overflow:hidden"><span class="pkv"></span></div>
+
+              <div style="display:flex;align-items:center;gap:16px">
+                <div style="width:42px;height:42px;border-radius:12px;border:1px solid #42D9F5;background:rgba(66,217,245,.12);display:flex;align-items:center;justify-content:center;flex:0 0 auto"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div>
+                <div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:600">Call external API</div></div>
+                <div class="mono" style="font-size:12px;color:#42D9F5">done</div>
+              </div>
+              <div style="position:relative;margin-left:20px;width:2px;height:24px;background:#23334A;overflow:hidden"><span class="pkv" style="animation-delay:-.6s"></span></div>
+
+              <div style="display:flex;align-items:center;gap:16px">
+                <div class="n3" style="width:42px;height:42px;border-radius:12px;border:1px solid #42D9F5;display:flex;align-items:center;justify-content:center;flex:0 0 auto"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6"></path><path d="M12 19h8"></path></svg></div>
+                <div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:600">Run tool call</div></div>
+                <div class="mono" style="position:relative;width:104px;height:18px;text-align:right">
+                  <span class="st stA">running…</span>
+                  <span class="st stB">timed out</span>
+                  <span class="st stC">resuming…</span>
+                  <span class="st stD">done</span>
+                </div>
+              </div>
+              <div style="position:relative;margin-left:20px;width:2px;height:24px;background:#23334A;overflow:hidden"><span class="pkv" style="animation-delay:-1.1s"></span></div>
+
+              <div style="display:flex;align-items:center;gap:16px">
+                <div class="n4" style="width:42px;height:42px;border-radius:12px;border:1px solid #23334A;display:flex;align-items:center;justify-content:center;flex:0 0 auto"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"></path><path d="M9 12l2.2 2.2L15.5 10"></path></svg></div>
+                <div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:600">Verify &amp; deliver</div></div>
+                <div class="mono" style="position:relative;width:104px;height:18px;text-align:right">
+                  <span class="st stW">waiting</span>
+                  <span class="st stD">delivered</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:8px 24px 24px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div class="mono" style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#91A5C4">Run progress</div>
+                <div style="height:8px;border-radius:999px;background:#0B1426;border:1px solid #23334A;overflow:hidden"><div class="pbfill"></div></div>
+              </div>
+              <div class="ckchip mono" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:rgba(66,217,245,.1);border:1px solid rgba(66,217,245,.5);font-size:12px;color:#FFFFFF">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+                Checkpoint kept — steps 1–2 won't rerun
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marqwrap" style="background:#080F1D;border-bottom:1px solid #23334A;overflow:hidden">
+    <div class="marq" aria-hidden="true">
+      <div class="mono" style="display:flex;align-items:center;gap:36px;padding:22px 18px;font-size:14px;font-weight:500;color:#91A5C4;white-space:nowrap"><span>Tool call timed out</span><span style="color:#42D9F5">◆</span><span>Task ran twice</span><span style="color:#42D9F5">◆</span><span>Retry loop</span><span style="color:#42D9F5">◆</span><span>Workflow interrupted</span><span style="color:#42D9F5">◆</span><span>Compute wasted</span><span style="color:#42D9F5">◆</span><span>Duplicate work</span><span style="color:#42D9F5">◆</span><span>Customer delayed</span><span style="color:#42D9F5">◆</span></div>
+      <div class="mono" style="display:flex;align-items:center;gap:36px;padding:22px 18px;font-size:14px;font-weight:500;color:#91A5C4;white-space:nowrap"><span>Tool call timed out</span><span style="color:#42D9F5">◆</span><span>Task ran twice</span><span style="color:#42D9F5">◆</span><span>Retry loop</span><span style="color:#42D9F5">◆</span><span>Workflow interrupted</span><span style="color:#42D9F5">◆</span><span>Compute wasted</span><span style="color:#42D9F5">◆</span><span>Duplicate work</span><span style="color:#42D9F5">◆</span><span>Customer delayed</span><span style="color:#42D9F5">◆</span></div>
+    </div>
+  </div>
+
+  <!-- WHAT IF + INTERACTIVE DEMO -->
+  <div style="position:relative;overflow:hidden;background:#080F1D">
+    <div class="dotbg" aria-hidden="true"></div>
+    <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;right:-320px;top:-120px;width:760px;height:760px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
+    <div class="mono" aria-hidden="true" style="position:absolute;left:-10px;bottom:-70px;font-size:clamp(110px,22vw,300px);font-weight:600;line-height:1;letter-spacing:-0.04em;color:transparent;-webkit-text-stroke:1px rgba(66,217,245,.15);pointer-events:none;white-space:nowrap;user-select:none">RECOVER</div>
+    <div class="orb" aria-hidden="true" style="width:460px;height:460px;left:-160px;top:200px;background:rgba(66,217,245,.12)"></div>
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:120px 32px 112px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+      <div class="rv" style="max-width:820px;display:flex;flex-direction:column;gap:22px">
+        <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#42D9F5">The problem</div>
+        <h2 style="margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-0.03em;color:#FFFFFF">What if a failure didn't mean starting over?</h2>
+        <p style="margin:0;font-size:18px;line-height:1.7;color:#C0CDDF">For AI-native companies, a failed execution can mean more than an error message. It can mean lost work, repeated tasks, wasted tokens and compute, delayed customers, or disrupted services. We're bringing founders together to discuss how to make these failures less costly—and how to build systems that recover and continue.</p>
+      </div>
+
+      <div class="rv" style="background:#101E32;border:1px solid #23334A;border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:30px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:20px;font-weight:700;color:#FFFFFF">Same failure. Two outcomes.</div>
+            <div style="font-size:15px;color:#91A5C4">Tap to compare what happens after a tool call fails at step 3.</div>
+          </div>
+          <div role="group" aria-label="Compare outcomes" style="display:inline-flex;gap:6px;padding:6px;background:#0B1426;border:1px solid #23334A;border-radius:14px">
+            <button type="button" aria-pressed="{{isWithout}}" onClick="{{setWithout}}" style="min-height:46px;padding:0 20px;border:0;border-radius:10px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s ease,color .2s ease;{{tabWithoutStyle}}">Without recovery</button>
+            <button type="button" aria-pressed="{{isWith}}" onClick="{{setWith}}" style="min-height:46px;padding:0 20px;border:0;border-radius:10px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s ease,color .2s ease;{{tabWithStyle}}">With recovery</button>
+          </div>
+        </div>
+
+        <sc-if value="{{isWithout}}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:22px">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="mono" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#91A5C4">Attempt 1</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <div class="blk" style="background:rgba(66,217,245,.14);border:1px solid rgba(66,217,245,.55);color:#FFFFFF;animation-delay:.05s">Step 1 ✓</div>
+                <div class="blk" style="background:rgba(66,217,245,.14);border:1px solid rgba(66,217,245,.55);color:#FFFFFF;animation-delay:.2s">Step 2 ✓</div>
+                <div class="blk" style="background:rgba(255,138,122,.16);border:1px solid #FF8A7A;color:#FFFFFF;animation-delay:.35s">Step 3 ✕ failed</div>
+                <div class="blk" style="background:transparent;border:1px dashed #23334A;color:#91A5C4;animation-delay:.5s">Step 4 · never ran</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="mono" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#91A5C4">Rerun from the start</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <div class="blk" style="background:rgba(255,138,122,.08);border:1px dashed #FF8A7A;color:#FFB4A9;animation-delay:.7s">Step 1 · repeated</div>
+                <div class="blk" style="background:rgba(255,138,122,.08);border:1px dashed #FF8A7A;color:#FFB4A9;animation-delay:.85s">Step 2 · repeated</div>
+                <div class="blk" style="background:rgba(66,217,245,.14);border:1px solid rgba(66,217,245,.55);color:#FFFFFF;animation-delay:1s">Step 3 ✓</div>
+                <div class="blk" style="background:rgba(66,217,245,.14);border:1px solid rgba(66,217,245,.55);color:#FFFFFF;animation-delay:1.15s">Step 4 ✓</div>
+              </div>
+            </div>
+            <div style="padding:16px 20px;border-radius:14px;background:rgba(255,138,122,.08);border:1px solid rgba(255,138,122,.4);font-size:16px;line-height:1.6;color:#FFFFFF">The whole run starts over. Finished work runs twice, compute is spent again, and the customer waits longer.</div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{isWith}}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:22px">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="mono" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#91A5C4">Attempt 1</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <div class="blk" style="background:rgba(66,217,245,.14);border:1px solid rgba(66,217,245,.55);color:#FFFFFF;animation-delay:.05s">Step 1 ✓</div>
+                <div class="blk" style="background:rgba(66,217,245,.14);border:1px solid rgba(66,217,245,.55);color:#FFFFFF;animation-delay:.2s">Step 2 ✓</div>
+                <div class="blk" style="background:rgba(255,138,122,.16);border:1px solid #FF8A7A;color:#FFFFFF;animation-delay:.35s">Step 3 ✕ failed</div>
+                <div class="blk" style="background:rgba(66,217,245,.06);border:1px solid #42D9F5;color:#42D9F5;animation-delay:.5s">Checkpoint saved</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="mono" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#91A5C4">Resume from the checkpoint</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <div class="blk" style="background:transparent;border:1px dashed #23334A;color:#91A5C4;animation-delay:.7s">Step 1 · kept</div>
+                <div class="blk" style="background:transparent;border:1px dashed #23334A;color:#91A5C4;animation-delay:.85s">Step 2 · kept</div>
+                <div class="blk" style="background:rgba(66,217,245,.14);border:1px solid rgba(66,217,245,.55);color:#FFFFFF;animation-delay:1s">Step 3 ✓ resumed</div>
+                <div class="blk" style="background:rgba(66,217,245,.14);border:1px solid rgba(66,217,245,.55);color:#FFFFFF;animation-delay:1.15s">Step 4 ✓ verified</div>
+              </div>
+            </div>
+            <div style="padding:16px 20px;border-radius:14px;background:rgba(66,217,245,.08);border:1px solid rgba(66,217,245,.45);font-size:16px;line-height:1.6;color:#FFFFFF">Only the unfinished work runs. Completed steps are kept, the result is verified, and the service keeps moving.</div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLORE (bento) -->
+  <div id="explore" style="position:relative;overflow:hidden;background:#0B1426;border-top:1px solid #23334A">
+    <div class="stripebg" aria-hidden="true"></div>
+    <svg class="spinrev" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;left:-300px;bottom:-260px;width:700px;height:700px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
+    <div class="orb" aria-hidden="true" style="width:520px;height:520px;right:-180px;top:-80px;background:rgba(66,217,245,.14)"></div>
+    <div class="diam" aria-hidden="true" style="right:7%;top:9%;width:70px;height:70px;animation-delay:-2s"></div>
+    <div class="diam" aria-hidden="true" style="left:5%;top:30%;width:38px;height:38px;animation-delay:-7s"></div>
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:120px 32px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+      <div class="rv" style="max-width:760px;display:flex;flex-direction:column;gap:20px">
+        <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#42D9F5">What we'll explore</div>
+        <h2 style="margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-0.03em;color:#FFFFFF">Four ways to make failure less costly.</h2>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:24px">
+
+        <div class="card rv" style="flex:1.35 1 520px;min-width:0;background:#101E32;border:1px solid #23334A;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:22px">
+          <div style="height:120px;border-radius:16px;background:#0B1426;border:1px solid #23334A;display:flex;align-items:center;gap:0;padding:0 26px">
+            <div class="cp" style="animation-delay:0s"></div><div style="flex:1;height:2px;background:#23334A"></div>
+            <div class="cp" style="animation-delay:.7s"></div><div style="flex:1;height:2px;background:#23334A"></div>
+            <div class="cp" style="animation-delay:1.4s"></div><div style="flex:1;height:2px;background:#23334A"></div>
+            <div class="cp" style="animation-delay:2.1s"></div>
+            <div style="margin-left:22px;flex:0 0 auto">
+              <svg class="spin" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"></path><path d="M3 21v-5h5"></path></svg>
+            </div>
+          </div>
+          <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:#42D9F5">01</div>
+          <h3 style="margin:0;font-size:26px;line-height:1.2;font-weight:700;letter-spacing:-0.01em;color:#FFFFFF">Service Continuity and Work Recovery</h3>
+          <p style="margin:0;font-size:16px;line-height:1.7;color:#C0CDDF">Recover interrupted AI tasks and workflows through retries, resumptions, checkpoints, and controlled reruns—so less work gets lost when something fails.</p>
+        </div>
+
+        <div class="card rv" style="flex:1 1 380px;min-width:0;background:#101E32;border:1px solid #23334A;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:22px">
+          <div style="height:120px;border-radius:16px;background:#0B1426;border:1px solid #23334A;display:flex;align-items:center;padding:0 24px">
+            <div style="width:44px;height:44px;border-radius:12px;background:#101E32;border:1px solid #42D9F5;flex:0 0 auto"></div>
+            <div style="position:relative;flex:1;height:2px;background:#23334A;overflow:hidden"><span class="pk"></span></div>
+            <div style="position:relative;width:44px;height:44px;border-radius:12px;background:rgba(66,217,245,.14);border:1px solid #42D9F5;flex:0 0 auto"><span class="ringp"></span></div>
+            <div style="position:relative;flex:1;height:2px;background:#23334A;overflow:hidden"><span class="pk" style="animation-delay:-1.1s"></span></div>
+            <div style="width:44px;height:44px;border-radius:12px;background:#101E32;border:1px solid #42D9F5;flex:0 0 auto"></div>
+          </div>
+          <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:#42D9F5">02</div>
+          <h3 style="margin:0;font-size:26px;line-height:1.2;font-weight:700;letter-spacing:-0.01em;color:#FFFFFF">Service Continuity</h3>
+          <p style="margin:0;font-size:16px;line-height:1.7;color:#C0CDDF">Keep critical services and workflows moving through failures by identifying failure points, handling dependencies, and designing better recovery paths.</p>
+        </div>
+
+        <div class="card rv" style="flex:1 1 380px;min-width:0;background:#101E32;border:1px solid #23334A;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:22px">
+          <div style="height:120px;border-radius:16px;background:#0B1426;border:1px solid #23334A;display:flex;align-items:flex-end;gap:10px;padding:18px 26px;box-sizing:border-box">
+            <div class="bar shr" style="flex:1;height:100%;background:#FF8A7A;animation-delay:0s"></div>
+            <div class="bar shr" style="flex:1;height:78%;background:#FF8A7A;animation-delay:.3s"></div>
+            <div class="bar shr" style="flex:1;height:92%;background:#FF8A7A;animation-delay:.6s"></div>
+            <div class="bar shr" style="flex:1;height:64%;background:#FF8A7A;animation-delay:.9s"></div>
+            <div class="bar" style="flex:1;height:34%;background:#42D9F5"></div>
+            <div class="bar" style="flex:1;height:34%;background:#42D9F5"></div>
+          </div>
+          <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:#42D9F5">03</div>
+          <h3 style="margin:0;font-size:26px;line-height:1.2;font-weight:700;letter-spacing:-0.01em;color:#FFFFFF">Compute Cost Recovery</h3>
+          <p style="margin:0;font-size:16px;line-height:1.7;color:#C0CDDF">Identify wasted compute from repeated executions, retry loops, failed runs, and unnecessary processing. Explore practical ways to reduce avoidable spend.</p>
+        </div>
+
+        <div class="card rv" style="flex:1.35 1 520px;min-width:0;background:#101E32;border:1px solid #23334A;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:22px">
+          <div style="height:120px;border-radius:16px;background:#0B1426;border:1px solid #23334A;display:flex;align-items:flex-end;gap:12px;padding:18px 26px;box-sizing:border-box">
+            <div class="bar rse" style="flex:1;height:30%;background:linear-gradient(#42D9F5,#26C8E8);animation-delay:0s"></div>
+            <div class="bar rse" style="flex:1;height:44%;background:linear-gradient(#42D9F5,#26C8E8);animation-delay:.15s"></div>
+            <div class="bar rse" style="flex:1;height:52%;background:linear-gradient(#42D9F5,#26C8E8);animation-delay:.3s"></div>
+            <div class="bar rse" style="flex:1;height:68%;background:linear-gradient(#42D9F5,#26C8E8);animation-delay:.45s"></div>
+            <div class="bar rse" style="flex:1;height:82%;background:linear-gradient(#42D9F5,#26C8E8);animation-delay:.6s"></div>
+            <div class="bar rse" style="flex:1;height:100%;background:linear-gradient(#42D9F5,#26C8E8);animation-delay:.75s"></div>
+          </div>
+          <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:#42D9F5">04</div>
+          <h3 style="margin:0;font-size:26px;line-height:1.2;font-weight:700;letter-spacing:-0.01em;color:#FFFFFF">Reliability That Supports Growth</h3>
+          <p style="margin:0;font-size:16px;line-height:1.7;color:#C0CDDF">Understand how recovery, verification, and cost optimization can help teams scale without letting every failure become a bigger operational problem.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORT -->
+  <div id="report" style="position:relative;overflow:hidden;background:linear-gradient(180deg,#F5FAFF 0%,#E4F5FC 100%)">
+    <div class="lightdots" aria-hidden="true"></div>
+    <div class="blob" aria-hidden="true" style="width:640px;height:640px;left:-220px;top:140px;background:radial-gradient(closest-side,rgba(66,217,245,.42),transparent)"></div>
+    <div class="blob" aria-hidden="true" style="width:560px;height:560px;right:-160px;bottom:80px;background:radial-gradient(closest-side,rgba(38,200,232,.32),transparent);animation-delay:-7s"></div>
+    <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;right:-260px;top:90px;width:780px;height:780px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(10,124,153,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(11,20,38,.14)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(11,20,38,.16)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#0A8FB0"></circle><circle cx="341" cy="270" r="4" fill="#0B1426" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
+    <svg aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" style="position:absolute;top:-1px;left:0;width:100%;height:76px;display:block;pointer-events:none"><path d="M0 0H1440V30C1180 98 900 88 640 42C400 0 180 8 0 58Z" fill="#0B1426"></path></svg>
+    <svg aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" style="position:absolute;bottom:-1px;left:0;width:100%;height:76px;display:block;pointer-events:none"><path d="M0 90H1440V60C1200 -8 940 6 700 50C460 92 220 90 0 34Z" fill="#0B1426"></path></svg>
+        <div style="position:relative;max-width:1200px;margin:0 auto;padding:160px 32px;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:72px">
+
+      <div class="rv" style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:24px">
+        <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#0A7C99">A practical takeaway for your company</div>
+        <h2 style="margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-0.03em;color:#0B1426">Your AI Workflow &amp; Compute Cost Review</h2>
+        <p style="margin:0;font-size:18px;line-height:1.7;color:#34475F">Participating founders will be offered a short, tailored PDF report outlining potential reliability and compute-cost issues worth investigating in their company. Depending on the information available, your report may include:</p>
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="chip" style="display:flex;gap:16px;align-items:flex-start;background:#FFFFFF;border:1px solid #D3E3F3;border-radius:14px;padding:16px 20px;box-shadow:0 14px 34px -22px rgba(11,20,38,.35)">
+            <svg aria-hidden="true" style="flex:0 0 auto;margin-top:3px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A8FB0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>
+            <div><div style="font-size:16px;font-weight:700;color:#0B1426">Potential cost leaks</div><div style="font-size:15px;line-height:1.6;color:#34475F">Where repeated work, failed executions, or unnecessary processing could be wasting compute.</div></div>
+          </div>
+          <div class="chip" style="display:flex;gap:16px;align-items:flex-start;background:#FFFFFF;border:1px solid #D3E3F3;border-radius:14px;padding:16px 20px;box-shadow:0 14px 34px -22px rgba(11,20,38,.35)">
+            <svg aria-hidden="true" style="flex:0 0 auto;margin-top:3px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A8FB0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>
+            <div><div style="font-size:16px;font-weight:700;color:#0B1426">Workflow failure points</div><div style="font-size:15px;line-height:1.6;color:#34475F">Where interruptions or dependencies may prevent work from completing.</div></div>
+          </div>
+          <div class="chip" style="display:flex;gap:16px;align-items:flex-start;background:#FFFFFF;border:1px solid #D3E3F3;border-radius:14px;padding:16px 20px;box-shadow:0 14px 34px -22px rgba(11,20,38,.35)">
+            <svg aria-hidden="true" style="flex:0 0 auto;margin-top:3px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A8FB0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>
+            <div><div style="font-size:16px;font-weight:700;color:#0B1426">Recovery opportunities</div><div style="font-size:15px;line-height:1.6;color:#34475F">Practical ways to retry, resume, restore, or rerun interrupted work safely.</div></div>
+          </div>
+          <div class="chip" style="display:flex;gap:16px;align-items:flex-start;background:#FFFFFF;border:1px solid #D3E3F3;border-radius:14px;padding:16px 20px;box-shadow:0 14px 34px -22px rgba(11,20,38,.35)">
+            <svg aria-hidden="true" style="flex:0 0 auto;margin-top:3px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A8FB0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>
+            <div><div style="font-size:16px;font-weight:700;color:#0B1426">Continuity improvements</div><div style="font-size:15px;line-height:1.6;color:#34475F">Steps that could help critical workflows recover faster and services remain available.</div></div>
+          </div>
+          <div class="chip" style="display:flex;gap:16px;align-items:flex-start;background:#FFFFFF;border:1px solid #D3E3F3;border-radius:14px;padding:16px 20px;box-shadow:0 14px 34px -22px rgba(11,20,38,.35)">
+            <svg aria-hidden="true" style="flex:0 0 auto;margin-top:3px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A8FB0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>
+            <div><div style="font-size:16px;font-weight:700;color:#0B1426">Prioritized recommendations</div><div style="font-size:15px;line-height:1.6;color:#34475F">A short list of improvements to investigate first.</div></div>
+          </div>
+        </div>
+
+        <p style="margin:0;font-size:14px;line-height:1.7;color:#4C607C">The report will be based on publicly available information and any relevant details you choose to share. It will identify potential issues and opportunities, not claim verified savings without access to supporting data.</p>
+      </div>
+
+      <div class="rv" style="flex:1 1 380px;min-width:0;display:flex;justify-content:center;padding:20px">
+        <div class="reportcard" style="position:relative;width:100%;max-width:420px;background:#101E32;border:1px solid #23334A;border-radius:18px;overflow:hidden;box-shadow:0 50px 90px -30px rgba(11,20,38,.6),0 0 0 1px rgba(66,217,245,.25)">
+          <div class="scanline" aria-hidden="true"></div>
+          <div style="padding:26px 26px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #23334A">
+            <div style="font-size:14px;font-weight:700;letter-spacing:0.16em;color:#FFFFFF">FLEXERA</div>
+            <div class="mono" style="font-size:11px;font-weight:600;letter-spacing:0.1em;padding:4px 10px;border:1px solid #42D9F5;border-radius:6px;color:#42D9F5">PDF REPORT</div>
+          </div>
+          <div style="padding:22px 26px 28px;display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:20px;line-height:1.25;font-weight:700;color:#FFFFFF">AI Workflow &amp; Compute Cost Review</div>
+              <div class="mono" style="font-size:12px;color:#91A5C4">Prepared for [Your company]</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;font-size:12px;color:#C0CDDF"><span>Potential cost leaks</span><span class="mono" style="color:#42D9F5">01</span></div><div style="height:6px;border-radius:999px;background:#0B1426;overflow:hidden"><div style="width:78%;height:100%;background:#42D9F5;border-radius:999px"></div></div></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;font-size:12px;color:#C0CDDF"><span>Workflow failure points</span><span class="mono" style="color:#42D9F5">02</span></div><div style="height:6px;border-radius:999px;background:#0B1426;overflow:hidden"><div style="width:56%;height:100%;background:#42D9F5;border-radius:999px"></div></div></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;font-size:12px;color:#C0CDDF"><span>Recovery opportunities</span><span class="mono" style="color:#42D9F5">03</span></div><div style="height:6px;border-radius:999px;background:#0B1426;overflow:hidden"><div style="width:68%;height:100%;background:#42D9F5;border-radius:999px"></div></div></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;font-size:12px;color:#C0CDDF"><span>Continuity improvements</span><span class="mono" style="color:#42D9F5">04</span></div><div style="height:6px;border-radius:999px;background:#0B1426;overflow:hidden"><div style="width:44%;height:100%;background:#42D9F5;border-radius:999px"></div></div></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;font-size:12px;color:#C0CDDF"><span>Prioritized recommendations</span><span class="mono" style="color:#42D9F5">05</span></div><div style="height:6px;border-radius:999px;background:#0B1426;overflow:hidden"><div style="width:62%;height:100%;background:#42D9F5;border-radius:999px"></div></div></div>
+            </div>
+            <div style="padding:14px 16px;border-radius:12px;background:rgba(66,217,245,.08);border:1px solid rgba(66,217,245,.4);font-size:13px;line-height:1.55;color:#FFFFFF"><span style="font-weight:700;color:#42D9F5">The goal:</span> a clearer picture of where your company might be losing work or compute.</div>
+            <div style="font-size:11px;color:#91A5C4">Illustrative layout · actual report content is tailored to each company.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AGENDA -->
+  <div id="agenda" style="position:relative;overflow:hidden;background:#0B1426">
+    <div class="dotbg" aria-hidden="true"></div>
+    <div class="mono" aria-hidden="true" style="position:absolute;right:-10px;top:-30px;font-size:clamp(110px,22vw,300px);font-weight:600;line-height:1;letter-spacing:-0.04em;color:transparent;-webkit-text-stroke:1px rgba(66,217,245,.15);pointer-events:none;white-space:nowrap;user-select:none">45:00</div>
+    <svg class="spinrev" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;right:-260px;bottom:-300px;width:640px;height:640px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
+    <div class="beam" aria-hidden="true" style="top:55%;opacity:.55"></div>
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:150px 32px 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+      <div class="rv" style="max-width:760px;display:flex;flex-direction:column;gap:20px">
+        <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#42D9F5">The roundtable · 45-minute format</div>
+        <h2 style="margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-0.03em;color:#FFFFFF">A focused conversation, not another product pitch.</h2>
+        <p style="margin:0;font-size:18px;line-height:1.7;color:#C0CDDF">We'll keep the discussion focused on practical engineering and business challenges.</p>
+      </div>
+
+      <div class="rv" style="position:relative;padding-top:8px" aria-hidden="true">
+        <div style="position:relative;display:flex;gap:6px">
+          <div style="flex:5;height:10px;border-radius:999px;background:#C0CDDF"></div>
+          <div style="flex:15;height:10px;border-radius:999px;background:#42D9F5"></div>
+          <div style="flex:15;height:10px;border-radius:999px;background:#26C8E8"></div>
+          <div style="flex:10;height:10px;border-radius:999px;background:#91A5C4"></div>
+          <div class="playhead"></div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:20px">
+        <div class="card rv" style="flex:1 1 240px;min-width:0;background:#101E32;border:1px solid #23334A;border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:12px">
+          <div class="mono" style="font-size:34px;line-height:1;font-weight:600;color:#C0CDDF">5<span style="font-size:15px;color:#91A5C4"> min</span></div>
+          <div style="font-size:20px;font-weight:700;color:#FFFFFF">Introductions</div>
+          <div style="font-size:15px;line-height:1.65;color:#C0CDDF">What you're building and where reliability matters.</div>
+        </div>
+        <div class="card rv" style="flex:1 1 240px;min-width:0;background:#101E32;border:1px solid #23334A;border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:12px">
+          <div class="mono" style="font-size:34px;line-height:1;font-weight:600;color:#42D9F5">15<span style="font-size:15px;color:#91A5C4"> min</span></div>
+          <div style="font-size:20px;font-weight:700;color:#FFFFFF">Real failure scenarios</div>
+          <div style="font-size:15px;line-height:1.65;color:#C0CDDF">Interrupted workflows, failed executions, duplicate work, and wasted compute.</div>
+        </div>
+        <div class="card rv" style="flex:1 1 240px;min-width:0;background:#101E32;border:1px solid #23334A;border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:12px">
+          <div class="mono" style="font-size:34px;line-height:1;font-weight:600;color:#26C8E8">15<span style="font-size:15px;color:#91A5C4"> min</span></div>
+          <div style="font-size:20px;font-weight:700;color:#FFFFFF">Recovery strategies</div>
+          <div style="font-size:15px;line-height:1.65;color:#C0CDDF">Share approaches and discuss how to improve continuity and cost efficiency.</div>
+        </div>
+        <div class="card rv" style="flex:1 1 240px;min-width:0;background:#101E32;border:1px solid #23334A;border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:12px">
+          <div class="mono" style="font-size:34px;line-height:1;font-weight:600;color:#91A5C4">10<span style="font-size:15px;color:#91A5C4"> min</span></div>
+          <div style="font-size:20px;font-weight:700;color:#FFFFFF">Practical takeaways</div>
+          <div style="font-size:15px;line-height:1.65;color:#C0CDDF">Key lessons, next steps, and founder connections.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHO -->
+  <div style="position:relative;overflow:hidden;background:#080F1D">
+    <div class="gridbg" aria-hidden="true"></div>
+    <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;left:-340px;top:-200px;width:820px;height:820px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
+    <div class="orb" aria-hidden="true" style="width:500px;height:500px;right:-160px;bottom:-120px;background:rgba(66,217,245,.13)"></div>
+    <div class="diam" aria-hidden="true" style="right:8%;top:14%;width:64px;height:64px;animation-delay:-4s"></div>
+    <div class="diam" aria-hidden="true" style="left:46%;bottom:9%;width:36px;height:36px;animation-delay:-8s"></div>
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:130px 32px 150px;box-sizing:border-box;display:flex;flex-direction:column;gap:48px">
+      <div class="rv" style="max-width:760px;display:flex;flex-direction:column;gap:20px">
+        <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#42D9F5">Who should join?</div>
+        <h2 style="margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-0.03em;color:#FFFFFF">Designed for founders building:</h2>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:14px">
+        <div class="chip rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>AI-native software and AI-powered applications</div>
+        <div class="chip rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>AI agents and multi-step workflows</div>
+        <div class="chip rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>Products that depend on external APIs and tools</div>
+        <div class="chip rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>AI automation platforms and developer tools</div>
+        <div class="chip rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>Systems where failed executions or unnecessary compute affect customers or margins</div>
+      </div>
+
+      <p class="rv" style="margin:0;max-width:760px;font-size:19px;line-height:1.7;color:#C0CDDF">You don't need to have everything figured out. If reliability, interrupted work, or compute costs are becoming important to your product, you'll have something to contribute.</p>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div style="position:relative;overflow:hidden;background:linear-gradient(135deg,#E6F7FD 0%,#C4ECF9 55%,#A9E2F5 100%)">
+    <div class="lightdots" aria-hidden="true"></div>
+    <div class="blob" aria-hidden="true" style="width:560px;height:560px;left:-160px;top:-120px;background:radial-gradient(closest-side,rgba(255,255,255,.85),transparent)"></div>
+    <div class="blob" aria-hidden="true" style="width:520px;height:520px;right:-140px;bottom:-100px;background:radial-gradient(closest-side,rgba(66,217,245,.45),transparent);animation-delay:-8s"></div>
+    <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;right:-240px;top:-160px;width:700px;height:700px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(10,124,153,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(11,20,38,.14)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(11,20,38,.16)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#0A8FB0"></circle><circle cx="341" cy="270" r="4" fill="#0B1426" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
+    <svg aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" style="position:absolute;top:-1px;left:0;width:100%;height:76px;display:block;pointer-events:none"><path d="M0 0H1440V30C1180 98 900 88 640 42C400 0 180 8 0 58Z" fill="#080F1D"></path></svg>
+    <svg aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" style="position:absolute;bottom:-1px;left:0;width:100%;height:76px;display:block;pointer-events:none"><path d="M0 90H1440V60C1200 -8 940 6 700 50C460 92 220 90 0 34Z" fill="#080F1D"></path></svg>
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:170px 32px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+      <div class="rv" style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:20px">
+        <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#0A6E8A">About Flexera</div>
+        <h2 style="margin:0;font-size:clamp(30px,4vw,46px);line-height:1.1;font-weight:700;letter-spacing:-0.03em;color:#0B1426">Reliability should go beyond detecting a failure.</h2>
+        <div class="mono" style="align-self:flex-start;margin-top:6px;padding:10px 16px;border-radius:10px;background:#0B1426;color:#42D9F5;font-size:12px;font-weight:600;letter-spacing:0.08em">Work Continuity &amp; Compute Cost Recovery</div>
+      </div>
+      <div class="rv" style="flex:1.2 1 460px;min-width:0;display:flex;flex-direction:column;gap:20px">
+        <p style="margin:0;font-size:18px;line-height:1.75;color:#1F3552">Flexera is building work continuity and compute cost recovery software for AI-native systems. Our focus is helping teams understand when work fails, recover interrupted execution, keep services running, and reduce unnecessary compute spend.</p>
+        <p style="margin:0;font-size:18px;line-height:1.75;color:#1F3552">We believe reliability should go beyond detecting a failure. Systems should be better equipped to recover, verify that work completed, and continue operating.</p>
+        <p style="margin:0;font-size:18px;line-height:1.75;color:#0B1426;font-weight:600">This roundtable is an opportunity to learn directly from founders facing these challenges.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGISTER -->
+  <div id="register" style="position:relative;overflow:hidden;background:#080F1D">
+    <div class="gridbg" aria-hidden="true"></div>
+    <div class="orb" aria-hidden="true" style="width:480px;height:480px;left:-160px;top:40px;background:rgba(66,217,245,.14)"></div>
+    <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;right:-320px;top:40px;width:860px;height:860px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
+    <div class="beam" aria-hidden="true" style="top:30%;opacity:.6"></div>
+    <div class="diam" aria-hidden="true" style="left:42%;top:8%;width:70px;height:70px;animation-delay:-3s"></div>
+    <div class="diam" aria-hidden="true" style="right:4%;bottom:6%;width:110px;height:110px;animation-delay:-6s"></div>
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:80px 32px 130px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:72px;align-items:flex-start">
+
+      <div class="rv" style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:26px">
+        <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#42D9F5">Join the Founder Roundtable</div>
+        <h2 style="margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-0.03em;color:#FFFFFF">Pick a time and book your seat.</h2>
+        <div style="display:flex;flex-direction:column;gap:0;border:1px solid #23334A;border-radius:16px;background:rgba(16,30,50,.8);overflow:hidden">
+          <div style="display:flex;gap:16px;padding:16px 20px;border-bottom:1px solid #23334A"><div style="flex:0 0 90px;font-size:14px;font-weight:600;color:#91A5C4">When</div><div style="font-size:16px;font-weight:600;color:#FFFFFF">Saturday, October 17, 2026 · 5:00–5:45 AM</div></div>
+          <div style="display:flex;gap:16px;padding:16px 20px;border-bottom:1px solid #23334A"><div style="flex:0 0 90px;font-size:14px;font-weight:600;color:#91A5C4">Format</div><div style="font-size:16px;font-weight:600;color:#FFFFFF">Online</div></div>
+          <div style="display:flex;gap:16px;padding:16px 20px"><div style="flex:0 0 90px;font-size:14px;font-weight:600;color:#91A5C4">Hosted by</div><div style="font-size:16px;font-weight:600;color:#FFFFFF">Flexera</div></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <div style="padding:8px 12px;border-radius:10px;background:#101E32;border:1px solid #23334A;text-align:center"><span class="mono" style="font-size:20px;font-weight:600;color:#FFFFFF">{{days}}</span> <span style="font-size:12px;color:#91A5C4">d</span></div>
+          <div style="padding:8px 12px;border-radius:10px;background:#101E32;border:1px solid #23334A;text-align:center"><span class="mono" style="font-size:20px;font-weight:600;color:#FFFFFF">{{hours}}</span> <span style="font-size:12px;color:#91A5C4">h</span></div>
+          <div style="padding:8px 12px;border-radius:10px;background:#101E32;border:1px solid #23334A;text-align:center"><span class="mono" style="font-size:20px;font-weight:600;color:#FFFFFF">{{mins}}</span> <span style="font-size:12px;color:#91A5C4">m</span></div>
+          <div style="padding:8px 12px;border-radius:10px;background:#101E32;border:1px solid #42D9F5;text-align:center"><span class="mono" style="font-size:20px;font-weight:600;color:#42D9F5">{{secs}}</span> <span style="font-size:12px;color:#91A5C4">s</span></div>
+        </div>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:#91A5C4">Joining details are shared directly with confirmed participants.</p>
+      </div>
+
+      <div class="rv fieldglow" style="flex:1.4 1 480px;min-width:0;padding:1px;border-radius:16px">
+        <div style="background:#101E32;border-radius:15px;padding:40px;box-sizing:border-box;display:flex;flex-direction:column;gap:30px">
+
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="mono" style="font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#42D9F5">Book your seat</div>
+            <div style="font-size:clamp(26px,3.4vw,38px);line-height:1.15;font-weight:700;letter-spacing:-0.02em;color:#FFFFFF">Saturday, October 17, 2026</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <div class="mono" style="padding:7px 12px;border-radius:8px;background:#0B1426;border:1px solid #23334A;font-size:13px;color:#FFFFFF">5:00–5:45 AM</div>
+              <div class="mono" style="padding:7px 12px;border-radius:8px;background:#0B1426;border:1px solid #23334A;font-size:13px;color:#FFFFFF">Online · Google Meet</div>
+              <div class="mono" style="padding:7px 12px;border-radius:8px;background:#0B1426;border:1px solid #23334A;font-size:13px;color:#FFFFFF">Limited invitations</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;background:#0B1426;border:1px solid #23334A;border-radius:12px">
+              <div class="mono" style="flex:0 0 38px;height:38px;border-radius:50%;border:1px solid #42D9F5;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#42D9F5">1</div>
+              <div style="font-size:16px;line-height:1.5;color:#FFFFFF">Choose the roundtable time slot</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;background:#0B1426;border:1px solid #23334A;border-radius:12px">
+              <div class="mono" style="flex:0 0 38px;height:38px;border-radius:50%;border:1px solid #42D9F5;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#42D9F5">2</div>
+              <div style="font-size:16px;line-height:1.5;color:#FFFFFF">Enter your name and work email</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;background:#0B1426;border:1px solid #23334A;border-radius:12px">
+              <div class="mono" style="flex:0 0 38px;height:38px;border-radius:50%;border:1px solid #42D9F5;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#42D9F5">3</div>
+              <div style="font-size:16px;line-height:1.5;color:#FFFFFF">Get your confirmation and joining details</div>
+            </div>
+          </div>
+
+          <a class="btn glowbtn" href="https://calendly.com/d/dvyk-74s-wyj/one-off-meeting" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:60px;padding:0 28px;box-sizing:border-box;background:#42D9F5;color:#07111F;border-radius:12px;font-size:18px;font-weight:700;text-decoration:none">Book on Calendly <span aria-hidden="true">→</span></a>
+          <div style="font-size:14px;line-height:1.6;color:#91A5C4;text-align:center">Opens Calendly in a new tab. Participating founders are offered a tailored AI Workflow &amp; Compute Cost Review.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="position:relative;overflow:hidden;background:#0B1426;border-top:1px solid #23334A">
+    <div class="dotbg" aria-hidden="true"></div>
+    <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;left:50%;margin-left:-260px;top:-300px;width:520px;height:520px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:72px 32px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+      <div style="font-size:clamp(24px,3.4vw,38px);line-height:1.2;font-weight:700;letter-spacing:-0.02em;color:#FFFFFF">When systems fail, work shouldn't have to stop.</div>
+      <div style="font-size:15px;color:#91A5C4">Flexera — Work Continuity &amp; Compute Cost Recovery</div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6300}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._tick = setInterval(() => this.forceUpdate(), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this._tick);
+  }
+  renderVals() {
+    const mode = (this.state && this.state.mode) || 'without';
+    const target = new Date(2026, 9, 17, 5, 0, 0).getTime();
+    const diff = Math.max(0, target - Date.now());
+    const pad = (n) => String(n).padStart(2, '0');
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    const on = 'background:#42D9F5;color:#07111F;';
+    const off = 'background:transparent;color:#C0CDDF;';
+    return {
+      days: pad(days),
+      hours: pad(hours),
+      mins: pad(mins),
+      secs: pad(secs),
+      isWithout: mode === 'without',
+      isWith: mode === 'with',
+      setWithout: () => this.setState({ mode: 'without' }),
+      setWith: () => this.setState({ mode: 'with' }),
+      tabWithoutStyle: mode === 'without' ? on : off,
+      tabWithStyle: mode === 'with' ? on : off
+    };
+  }
+}
+</script>
+</body>
+</html>
