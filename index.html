@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2.1">
 </head>
 <body>
 <div id="scroll-progress"></div>
@@ -17,7 +17,7 @@
 
   <!-- NAV -->
   <div style="position:sticky;top:0;z-index:50;background:rgba(8,15,29,.74);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid rgba(35,51,74,.8)">
-    <div style="max-width:1200px;margin:0 auto;padding:12px 32px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <div class="navbar-container" style="max-width:1200px;margin:0 auto;padding:12px 32px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:20px">
       <a href="#top" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:#FFFFFF">
         <span style="width:36px;height:36px;border-radius:10px;background:#101E32;border:1px solid #23334A;display:flex;align-items:center;justify-content:center;box-shadow:0 0 14px rgba(66,217,245,.25)">
           <svg width="22" height="22" viewBox="0 0 64 64" fill="none">
@@ -35,7 +35,7 @@
         <a href="#report" style="color:#C0CDDF;text-decoration:none">Your report</a>
         <a href="#agenda" style="color:#C0CDDF;text-decoration:none">Agenda</a>
       </div>
-      <a class="btn" href="https://calendly.com/d/dvyk-74s-wyj/one-off-meeting" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;box-sizing:border-box;background:#42D9F5;color:#07111F;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none">Book your spot</a>
+      <a class="btn navbar-btn" href="https://calendly.com/d/dvyk-74s-wyj/one-off-meeting" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;box-sizing:border-box;background:#42D9F5;color:#07111F;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none">Book your spot</a>
     </div>
   </div>
 
@@ -53,30 +53,30 @@
     <div class="diam" aria-hidden="true" style="right:5%;bottom:12%;width:120px;height:120px;animation-delay:-6s"></div>
     <div class="diam" aria-hidden="true" style="left:38%;bottom:10%;width:30px;height:30px;animation-delay:-9s"></div>
 
-    <div style="position:relative;max-width:1200px;margin:0 auto;padding:88px 32px 96px;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:72px">
+    <div class="sec-container sec-hero" style="position:relative;max-width:1200px;margin:0 auto;padding:88px 32px 96px;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:72px">
 
       <div style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:28px">
-        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:10px;padding:8px 16px;border:1px solid #23334A;border-radius:999px;background:rgba(16,30,50,.85)">
+        <div class="hero-badge" style="display:inline-flex;align-self:flex-start;align-items:center;gap:10px;padding:8px 16px;border:1px solid #23334A;border-radius:999px;background:rgba(16,30,50,.85);max-width:100%;box-sizing:border-box">
           <span class="livedot" aria-hidden="true"></span>
           <span class="mono" style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#C0CDDF">Private founder roundtable · Fri, Oct 16 · 4:30–5:15 PM PDT (San Francisco)</span>
         </div>
-        <h1 style="margin:0;font-size:clamp(40px,6vw,76px);line-height:1.02;font-weight:700;letter-spacing:-0.035em;color:#FFFFFF">When AI Workflows Fail, Your Business Should <span class="gtxt">Keep Moving.</span></h1>
+        <h1 style="margin:0;font-size:clamp(36px,5.8vw,76px);line-height:1.02;font-weight:700;letter-spacing:-0.035em;color:#FFFFFF;overflow-wrap:break-word">When AI Workflows Fail, Your Business Should <span class="gtxt">Keep Moving.</span></h1>
         <p style="margin:0;font-size:21px;line-height:1.5;font-weight:500;color:#FFFFFF;max-width:600px">A private online founder roundtable for teams building AI-native software.</p>
         <p style="margin:0;font-size:17px;line-height:1.7;color:#C0CDDF;max-width:600px">AI agents fail. Tool calls time out. Workflows get interrupted. Tasks run twice. Compute gets wasted. Join other founders to discuss how to recover interrupted work, keep services running, and lower unnecessary compute costs—without rebuilding your entire stack.</p>
 
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px">
+        <div class="hero-btn-group" style="display:flex;flex-wrap:wrap;align-items:center;gap:16px">
           <a class="btn glowbtn" href="https://calendly.com/d/dvyk-74s-wyj/one-off-meeting" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:58px;padding:0 34px;box-sizing:border-box;background:#42D9F5;color:#07111F;border-radius:12px;font-size:17px;font-weight:700;text-decoration:none">Reserve your spot <span aria-hidden="true">→</span></a>
           <a class="ghost" href="#explore" style="display:inline-flex;align-items:center;justify-content:center;min-height:58px;padding:0 26px;box-sizing:border-box;background:transparent;border:1px solid #23334A;color:#FFFFFF;border-radius:12px;font-size:16px;font-weight:600;text-decoration:none">See what we'll cover</a>
         </div>
         <div style="font-size:14px;color:#91A5C4">Online · Limited invitations · Joining details are shared directly with confirmed participants.</div>
 
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px;width:100%;max-width:440px">
           <div class="mono" style="font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#91A5C4">Counting down to Friday, October 16 · 4:30 PM PDT (San Francisco)</div>
-          <div style="display:flex;flex-wrap:wrap;gap:10px">
-            <div style="min-width:76px;padding:12px 16px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #23334A;border-radius:14px;text-align:center"><div class="mono" id="hero-days" style="font-size:30px;line-height:1.1;font-weight:600;color:#FFFFFF">00</div><div style="font-size:12px;color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase">Days</div></div>
-            <div style="min-width:76px;padding:12px 16px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #23334A;border-radius:14px;text-align:center"><div class="mono" id="hero-hours" style="font-size:30px;line-height:1.1;font-weight:600;color:#FFFFFF">00</div><div style="font-size:12px;color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase">Hours</div></div>
-            <div style="min-width:76px;padding:12px 16px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #23334A;border-radius:14px;text-align:center"><div class="mono" id="hero-mins" style="font-size:30px;line-height:1.1;font-weight:600;color:#FFFFFF">00</div><div style="font-size:12px;color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase">Min</div></div>
-            <div style="min-width:76px;padding:12px 16px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #42D9F5;border-radius:14px;text-align:center"><div class="mono" id="hero-secs" style="font-size:30px;line-height:1.1;font-weight:600;color:#42D9F5">00</div><div style="font-size:12px;color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase">Sec</div></div>
+          <div class="countdown-row" style="display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;max-width:440px;width:100%;box-sizing:border-box">
+            <div class="countdown-box" style="flex:1 1 0;min-width:0;width:0;padding:12px 6px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #23334A;border-radius:14px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center"><div class="mono count-num" id="hero-days" style="font-size:clamp(17px,4.8vw,28px);line-height:1.1;font-weight:700;color:#FFFFFF">00</div><div class="count-label" style="font-size:clamp(9px,2.3vw,11px);color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase;margin-top:4px">Days</div></div>
+            <div class="countdown-box" style="flex:1 1 0;min-width:0;width:0;padding:12px 6px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #23334A;border-radius:14px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center"><div class="mono count-num" id="hero-hours" style="font-size:clamp(17px,4.8vw,28px);line-height:1.1;font-weight:700;color:#FFFFFF">00</div><div class="count-label" style="font-size:clamp(9px,2.3vw,11px);color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase;margin-top:4px">Hours</div></div>
+            <div class="countdown-box" style="flex:1 1 0;min-width:0;width:0;padding:12px 6px;box-sizing:border-box;background:rgba(16,30,50,.9);border:1px solid #23334A;border-radius:14px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center"><div class="mono count-num" id="hero-mins" style="font-size:clamp(17px,4.8vw,28px);line-height:1.1;font-weight:700;color:#FFFFFF">00</div><div class="count-label" style="font-size:clamp(9px,2.3vw,11px);color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase;margin-top:4px">Min</div></div>
+            <div class="countdown-box highlight" style="flex:1 1 0;min-width:0;width:0;padding:12px 6px;box-sizing:border-box;background:rgba(16,30,50,.95);border:1px solid #42D9F5;border-radius:14px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center"><div class="mono count-num" id="hero-secs" style="font-size:clamp(17px,4.8vw,28px);line-height:1.1;font-weight:700;color:#42D9F5">00</div><div class="count-label" style="font-size:clamp(9px,2.3vw,11px);color:#91A5C4;letter-spacing:0.08em;text-transform:uppercase;margin-top:4px">Sec</div></div>
           </div>
         </div>
       </div>
@@ -161,20 +161,20 @@
     <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;right:-320px;top:-120px;width:760px;height:760px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
     <div class="mono" aria-hidden="true" style="position:absolute;left:-10px;bottom:-70px;font-size:clamp(110px,22vw,300px);font-weight:600;line-height:1;letter-spacing:-0.04em;color:transparent;-webkit-text-stroke:1px rgba(66,217,245,.15);pointer-events:none;white-space:nowrap;user-select:none">RECOVER</div>
     <div class="orb" aria-hidden="true" style="width:460px;height:460px;left:-160px;top:200px;background:rgba(66,217,245,.12)"></div>
-    <div style="position:relative;max-width:1200px;margin:0 auto;padding:120px 32px 112px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+    <div class="sec-container sec-explore" style="position:relative;max-width:1200px;margin:0 auto;padding:120px 32px 112px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
       <div class="rv" style="max-width:820px;display:flex;flex-direction:column;gap:22px">
         <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#42D9F5">The problem</div>
         <h2 style="margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-0.03em;color:#FFFFFF">What if a failure didn't mean starting over?</h2>
         <p style="margin:0;font-size:18px;line-height:1.7;color:#C0CDDF">For AI-native companies, a failed execution can mean more than an error message. It can mean lost work, repeated tasks, wasted tokens and compute, delayed customers, or disrupted services. We're bringing founders together to discuss how to make these failures less costly—and how to build systems that recover and continue.</p>
       </div>
 
-      <div class="rv" style="background:#101E32;border:1px solid #23334A;border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:30px">
+      <div class="rv compare-card" style="background:#101E32;border:1px solid #23334A;border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:30px">
         <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px">
           <div style="display:flex;flex-direction:column;gap:4px">
             <div style="font-size:20px;font-weight:700;color:#FFFFFF">Same failure. Two outcomes.</div>
             <div style="font-size:15px;color:#91A5C4">Tap to compare what happens after a tool call fails at step 3.</div>
           </div>
-          <div role="group" aria-label="Compare outcomes" style="display:inline-flex;gap:6px;padding:6px;background:#0B1426;border:1px solid #23334A;border-radius:14px">
+          <div role="group" aria-label="Compare outcomes" class="compare-tab-group" style="display:inline-flex;gap:6px;padding:6px;background:#0B1426;border:1px solid #23334A;border-radius:14px">
             <button type="button" id="tab-without" class="tab-btn active" aria-pressed="true">Without recovery</button>
             <button type="button" id="tab-with" class="tab-btn" aria-pressed="false">With recovery</button>
           </div>
@@ -238,7 +238,7 @@
     <div class="orb" aria-hidden="true" style="width:520px;height:520px;right:-180px;top:-80px;background:rgba(66,217,245,.14)"></div>
     <div class="diam" aria-hidden="true" style="right:7%;top:9%;width:70px;height:70px;animation-delay:-2s"></div>
     <div class="diam" aria-hidden="true" style="left:5%;top:30%;width:38px;height:38px;animation-delay:-7s"></div>
-    <div style="position:relative;max-width:1200px;margin:0 auto;padding:120px 32px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+    <div class="sec-container sec-bento" style="position:relative;max-width:1200px;margin:0 auto;padding:120px 32px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
       <div class="rv" style="max-width:760px;display:flex;flex-direction:column;gap:20px">
         <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#42D9F5">What we'll explore</div>
         <h2 style="margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-0.03em;color:#FFFFFF">Four ways to make failure less costly.</h2>
@@ -314,7 +314,7 @@
     <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;right:-260px;top:90px;width:780px;height:780px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(10,124,153,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(11,20,38,.14)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(11,20,38,.16)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#0A8FB0"></circle><circle cx="341" cy="270" r="4" fill="#0B1426" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
     <svg aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" style="position:absolute;top:-1px;left:0;width:100%;height:76px;display:block;pointer-events:none"><path d="M0 0H1440V30C1180 98 900 88 640 42C400 0 180 8 0 58Z" fill="#0B1426"></path></svg>
     <svg aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" style="position:absolute;bottom:-1px;left:0;width:100%;height:76px;display:block;pointer-events:none"><path d="M0 90H1440V60C1200 -8 940 6 700 50C460 92 220 90 0 34Z" fill="#0B1426"></path></svg>
-        <div style="position:relative;max-width:1200px;margin:0 auto;padding:160px 32px;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:72px">
+    <div class="sec-container sec-report" style="position:relative;max-width:1200px;margin:0 auto;padding:160px 32px;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:72px">
 
       <div class="rv" style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:24px">
         <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#0A7C99">A practical takeaway for your company</div>
@@ -381,7 +381,7 @@
     <div class="mono" aria-hidden="true" style="position:absolute;right:-10px;top:-30px;font-size:clamp(110px,22vw,300px);font-weight:600;line-height:1;letter-spacing:-0.04em;color:transparent;-webkit-text-stroke:1px rgba(66,217,245,.15);pointer-events:none;white-space:nowrap;user-select:none">45:00</div>
     <svg class="spinrev" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;right:-260px;bottom:-300px;width:640px;height:640px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
     <div class="beam" aria-hidden="true" style="top:55%;opacity:.55"></div>
-    <div style="position:relative;max-width:1200px;margin:0 auto;padding:150px 32px 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+    <div class="sec-container sec-agenda" style="position:relative;max-width:1200px;margin:0 auto;padding:150px 32px 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
       <div class="rv" style="max-width:760px;display:flex;flex-direction:column;gap:20px">
         <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#42D9F5">The roundtable · 45-minute format</div>
         <h2 style="margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-0.03em;color:#FFFFFF">A focused conversation, not another product pitch.</h2>
@@ -430,18 +430,18 @@
     <div class="orb" aria-hidden="true" style="width:500px;height:500px;right:-160px;bottom:-120px;background:rgba(66,217,245,.13)"></div>
     <div class="diam" aria-hidden="true" style="right:8%;top:14%;width:64px;height:64px;animation-delay:-4s"></div>
     <div class="diam" aria-hidden="true" style="left:46%;bottom:9%;width:36px;height:36px;animation-delay:-8s"></div>
-    <div style="position:relative;max-width:1200px;margin:0 auto;padding:130px 32px 150px;box-sizing:border-box;display:flex;flex-direction:column;gap:48px">
+    <div class="sec-container sec-who" style="position:relative;max-width:1200px;margin:0 auto;padding:130px 32px 150px;box-sizing:border-box;display:flex;flex-direction:column;gap:48px">
       <div class="rv" style="max-width:760px;display:flex;flex-direction:column;gap:20px">
         <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#42D9F5">Who should join?</div>
         <h2 style="margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-0.03em;color:#FFFFFF">Designed for founders building:</h2>
       </div>
 
       <div style="display:flex;flex-wrap:wrap;gap:14px">
-        <div class="chip rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>AI-native software and AI-powered applications</div>
-        <div class="chip rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>AI agents and multi-step workflows</div>
-        <div class="chip rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>Products that depend on external APIs and tools</div>
-        <div class="chip rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>AI automation platforms and developer tools</div>
-        <div class="chip rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>Systems where failed executions or unnecessary compute affect customers or margins</div>
+        <div class="chip chip-item rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>AI-native software and AI-powered applications</div>
+        <div class="chip chip-item rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>AI agents and multi-step workflows</div>
+        <div class="chip chip-item rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>Products that depend on external APIs and tools</div>
+        <div class="chip chip-item rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>AI automation platforms and developer tools</div>
+        <div class="chip chip-item rv" style="display:flex;align-items:center;gap:14px;padding:18px 24px;background:#101E32;border:1px solid #23334A;border-radius:999px;font-size:17px;font-weight:500;color:#FFFFFF"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#42D9F5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.7 2.7L16 9.5"></path></svg>Systems where failed executions or unnecessary compute affect customers or margins</div>
       </div>
 
       <p class="rv" style="margin:0;max-width:760px;font-size:19px;line-height:1.7;color:#C0CDDF">You don't need to have everything figured out. If reliability, interrupted work, or compute costs are becoming important to your product, you'll have something to contribute.</p>
@@ -456,7 +456,7 @@
     <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;right:-240px;top:-160px;width:700px;height:700px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(10,124,153,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(11,20,38,.14)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(11,20,38,.16)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#0A8FB0"></circle><circle cx="341" cy="270" r="4" fill="#0B1426" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
     <svg aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" style="position:absolute;top:-1px;left:0;width:100%;height:76px;display:block;pointer-events:none"><path d="M0 0H1440V30C1180 98 900 88 640 42C400 0 180 8 0 58Z" fill="#080F1D"></path></svg>
     <svg aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" style="position:absolute;bottom:-1px;left:0;width:100%;height:76px;display:block;pointer-events:none"><path d="M0 90H1440V60C1200 -8 940 6 700 50C460 92 220 90 0 34Z" fill="#080F1D"></path></svg>
-    <div style="position:relative;max-width:1200px;margin:0 auto;padding:170px 32px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div class="sec-container sec-about" style="position:relative;max-width:1200px;margin:0 auto;padding:170px 32px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
       <div class="rv" style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:20px">
         <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#0A6E8A">About Fluxera</div>
         <h2 style="margin:0;font-size:clamp(30px,4vw,46px);line-height:1.1;font-weight:700;letter-spacing:-0.03em;color:#0B1426">Reliability should go beyond detecting a failure.</h2>
@@ -478,7 +478,7 @@
     <div class="beam" aria-hidden="true" style="top:30%;opacity:.6"></div>
     <div class="diam" aria-hidden="true" style="left:42%;top:8%;width:70px;height:70px;animation-delay:-3s"></div>
     <div class="diam" aria-hidden="true" style="right:4%;bottom:6%;width:110px;height:110px;animation-delay:-6s"></div>
-    <div style="position:relative;max-width:1200px;margin:0 auto;padding:80px 32px 130px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:72px;align-items:flex-start">
+    <div class="sec-container sec-register" style="position:relative;max-width:1200px;margin:0 auto;padding:80px 32px 130px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:72px;align-items:flex-start">
 
       <div class="rv" style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:26px">
         <div class="mono" style="font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#42D9F5">Join the Founder Roundtable</div>
@@ -488,17 +488,17 @@
           <div style="display:flex;gap:16px;padding:16px 20px;border-bottom:1px solid #23334A"><div style="flex:0 0 90px;font-size:14px;font-weight:600;color:#91A5C4">Format</div><div style="font-size:16px;font-weight:600;color:#FFFFFF">Online</div></div>
           <div style="display:flex;gap:16px;padding:16px 20px"><div style="flex:0 0 90px;font-size:14px;font-weight:600;color:#91A5C4">Hosted by</div><div style="font-size:16px;font-weight:600;color:#FFFFFF">Fluxera</div></div>
         </div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px">
-          <div style="padding:8px 12px;border-radius:10px;background:#101E32;border:1px solid #23334A;text-align:center"><span class="mono" id="reg-days" style="font-size:20px;font-weight:600;color:#FFFFFF">00</span> <span style="font-size:12px;color:#91A5C4">d</span></div>
-          <div style="padding:8px 12px;border-radius:10px;background:#101E32;border:1px solid #23334A;text-align:center"><span class="mono" id="reg-hours" style="font-size:20px;font-weight:600;color:#FFFFFF">00</span> <span style="font-size:12px;color:#91A5C4">h</span></div>
-          <div style="padding:8px 12px;border-radius:10px;background:#101E32;border:1px solid #23334A;text-align:center"><span class="mono" id="reg-mins" style="font-size:20px;font-weight:600;color:#FFFFFF">00</span> <span style="font-size:12px;color:#91A5C4">m</span></div>
-          <div style="padding:8px 12px;border-radius:10px;background:#101E32;border:1px solid #42D9F5;text-align:center"><span class="mono" id="reg-secs" style="font-size:20px;font-weight:600;color:#42D9F5">00</span> <span style="font-size:12px;color:#91A5C4">s</span></div>
+        <div class="countdown-mini-row" style="display:flex;flex-direction:row;flex-wrap:nowrap;gap:6px;max-width:360px;width:100%;box-sizing:border-box">
+          <div class="countdown-mini-box" style="flex:1 1 0;min-width:0;width:0;padding:8px 4px;box-sizing:border-box;border-radius:10px;background:#101E32;border:1px solid #23334A;text-align:center;display:flex;align-items:baseline;justify-content:center;gap:3px"><span class="mono count-num" id="reg-days" style="font-size:clamp(14px,3.8vw,18px);font-weight:700;color:#FFFFFF">00</span> <span class="count-unit" style="font-size:clamp(10px,2.5vw,12px);color:#91A5C4">d</span></div>
+          <div class="countdown-mini-box" style="flex:1 1 0;min-width:0;width:0;padding:8px 4px;box-sizing:border-box;border-radius:10px;background:#101E32;border:1px solid #23334A;text-align:center;display:flex;align-items:baseline;justify-content:center;gap:3px"><span class="mono count-num" id="reg-hours" style="font-size:clamp(14px,3.8vw,18px);font-weight:700;color:#FFFFFF">00</span> <span class="count-unit" style="font-size:clamp(10px,2.5vw,12px);color:#91A5C4">h</span></div>
+          <div class="countdown-mini-box" style="flex:1 1 0;min-width:0;width:0;padding:8px 4px;box-sizing:border-box;border-radius:10px;background:#101E32;border:1px solid #23334A;text-align:center;display:flex;align-items:baseline;justify-content:center;gap:3px"><span class="mono count-num" id="reg-mins" style="font-size:clamp(14px,3.8vw,18px);font-weight:700;color:#FFFFFF">00</span> <span class="count-unit" style="font-size:clamp(10px,2.5vw,12px);color:#91A5C4">m</span></div>
+          <div class="countdown-mini-box highlight" style="flex:1 1 0;min-width:0;width:0;padding:8px 4px;box-sizing:border-box;border-radius:10px;background:#101E32;border:1px solid #42D9F5;text-align:center;display:flex;align-items:baseline;justify-content:center;gap:3px"><span class="mono count-num" id="reg-secs" style="font-size:clamp(14px,3.8vw,18px);font-weight:700;color:#42D9F5">00</span> <span class="count-unit" style="font-size:clamp(10px,2.5vw,12px);color:#91A5C4">s</span></div>
         </div>
         <p style="margin:0;font-size:15px;line-height:1.7;color:#91A5C4">Joining details are shared directly with confirmed participants.</p>
       </div>
 
       <div class="rv fieldglow" style="flex:1.4 1 480px;min-width:0;padding:1px;border-radius:16px">
-        <div style="background:#101E32;border-radius:15px;padding:40px;box-sizing:border-box;display:flex;flex-direction:column;gap:30px">
+        <div class="register-card-inner" style="background:#101E32;border-radius:15px;padding:40px;box-sizing:border-box;display:flex;flex-direction:column;gap:30px">
 
           <div style="display:flex;flex-direction:column;gap:10px">
             <div class="mono" style="font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#42D9F5">Book your seat</div>
@@ -511,15 +511,15 @@
           </div>
 
           <div style="display:flex;flex-direction:column;gap:14px">
-            <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;background:#0B1426;border:1px solid #23334A;border-radius:12px">
+            <div class="register-step-item" style="display:flex;align-items:center;gap:16px;padding:16px 18px;background:#0B1426;border:1px solid #23334A;border-radius:12px">
               <div class="mono" style="flex:0 0 38px;height:38px;border-radius:50%;border:1px solid #42D9F5;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#42D9F5">1</div>
               <div style="font-size:16px;line-height:1.5;color:#FFFFFF">Choose the roundtable time slot</div>
             </div>
-            <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;background:#0B1426;border:1px solid #23334A;border-radius:12px">
+            <div class="register-step-item" style="display:flex;align-items:center;gap:16px;padding:16px 18px;background:#0B1426;border:1px solid #23334A;border-radius:12px">
               <div class="mono" style="flex:0 0 38px;height:38px;border-radius:50%;border:1px solid #42D9F5;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#42D9F5">2</div>
               <div style="font-size:16px;line-height:1.5;color:#FFFFFF">Enter your name and work email</div>
             </div>
-            <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;background:#0B1426;border:1px solid #23334A;border-radius:12px">
+            <div class="register-step-item" style="display:flex;align-items:center;gap:16px;padding:16px 18px;background:#0B1426;border:1px solid #23334A;border-radius:12px">
               <div class="mono" style="flex:0 0 38px;height:38px;border-radius:50%;border:1px solid #42D9F5;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#42D9F5">3</div>
               <div style="font-size:16px;line-height:1.5;color:#FFFFFF">Get your confirmation and joining details</div>
             </div>
@@ -536,7 +536,7 @@
   <div style="position:relative;overflow:hidden;background:#0B1426;border-top:1px solid #23334A">
     <div class="dotbg" aria-hidden="true"></div>
     <svg class="spinslow" aria-hidden="true" viewBox="0 0 400 400" fill="none" style="position:absolute;left:50%;margin-left:-260px;top:-300px;width:520px;height:520px;pointer-events:none"><circle cx="200" cy="200" r="198" stroke="rgba(66,217,245,.30)" stroke-width="1" stroke-dasharray="3 9"></circle><circle cx="200" cy="200" r="150" stroke="rgba(66,217,245,.20)" stroke-width="1"></circle><circle cx="200" cy="200" r="100" stroke="rgba(192,205,223,.18)" stroke-width="1" stroke-dasharray="1 7"></circle><circle cx="200" cy="38" r="5" fill="#42D9F5"></circle><circle cx="341" cy="270" r="4" fill="#FFFFFF" opacity=".7"></circle><circle cx="64" cy="290" r="3.5" fill="#26C8E8"></circle></svg>
-    <div style="position:relative;max-width:1200px;margin:0 auto;padding:72px 32px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
+    <div class="sec-container sec-footer" style="position:relative;max-width:1200px;margin:0 auto;padding:72px 32px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
       <div style="display:inline-flex;align-items:center;gap:12px">
         <span style="width:36px;height:36px;border-radius:10px;background:#101E32;border:1px solid #23334A;display:flex;align-items:center;justify-content:center;box-shadow:0 0 14px rgba(66,217,245,.25)">
           <svg width="22" height="22" viewBox="0 0 64 64" fill="none">

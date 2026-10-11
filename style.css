@@ -1,5 +1,5 @@
-body{margin:0;background:#080F1D}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:#080F1D;overflow-x:hidden;width:100%}
+html{scroll-behavior:smooth;scroll-padding-top:72px;overflow-x:hidden;width:100%}
 a{color:#42D9F5}
 a:hover{color:#26C8E8}
 input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px solid #42D9F5;outline-offset:3px}
@@ -173,4 +173,268 @@ label.opt:hover{border-color:#42D9F5 !important;background:rgba(66,217,245,.06) 
   pointer-events: none;
   transition: width 0.1s ease-out;
 }
+
+/* ---------- Countdown Strictly Single-Line Layouts ---------- */
+.countdown-row {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: stretch !important;
+  gap: 8px !important;
+  max-width: 440px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.countdown-box {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  width: 0 !important;
+  padding: 12px 6px !important;
+  box-sizing: border-box !important;
+  background: rgba(16, 30, 50, 0.9) !important;
+  border: 1px solid #23334A !important;
+  border-radius: 14px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.countdown-box.highlight {
+  border-color: #42D9F5 !important;
+  background: rgba(16, 30, 50, 0.95) !important;
+  box-shadow: 0 0 16px rgba(66, 217, 245, 0.15) !important;
+}
+.countdown-box .count-num {
+  font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+  font-size: clamp(17px, 4.8vw, 28px) !important;
+  line-height: 1.1 !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+}
+.countdown-box.highlight .count-num {
+  color: #42D9F5 !important;
+}
+.countdown-box .count-label {
+  font-size: clamp(9px, 2.3vw, 11px) !important;
+  color: #91A5C4 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  margin-top: 4px !important;
+  white-space: nowrap !important;
+}
+
+.countdown-mini-row {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: stretch !important;
+  gap: 6px !important;
+  max-width: 360px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.countdown-mini-box {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  width: 0 !important;
+  padding: 8px 4px !important;
+  box-sizing: border-box !important;
+  border-radius: 10px !important;
+  background: #101E32 !important;
+  border: 1px solid #23334A !important;
+  text-align: center !important;
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: center !important;
+  gap: 3px !important;
+}
+.countdown-mini-box.highlight {
+  border-color: #42D9F5 !important;
+}
+.countdown-mini-box .count-num {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: clamp(14px, 3.8vw, 18px) !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+}
+.countdown-mini-box.highlight .count-num {
+  color: #42D9F5 !important;
+}
+.countdown-mini-box .count-unit {
+  font-size: clamp(10px, 2.5vw, 12px) !important;
+  color: #91A5C4 !important;
+}
+
+/* ---------- Global Responsive Enhancements ---------- */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 10px 16px !important;
+    gap: 12px !important;
+  }
+  .navbar-btn {
+    min-height: 38px !important;
+    padding: 0 14px !important;
+    font-size: 13px !important;
+  }
+
+  .sec-hero {
+    padding: 56px 18px 64px !important;
+    gap: 40px !important;
+  }
+  .sec-explore {
+    padding: 64px 18px 56px !important;
+    gap: 36px !important;
+  }
+  .sec-bento {
+    padding: 64px 18px !important;
+    gap: 36px !important;
+  }
+  .sec-report {
+    padding: 80px 18px !important;
+    gap: 40px !important;
+  }
+  .sec-agenda {
+    padding: 80px 18px 64px !important;
+    gap: 36px !important;
+  }
+  .sec-who {
+    padding: 64px 18px 72px !important;
+    gap: 32px !important;
+  }
+  .sec-about {
+    padding: 80px 18px !important;
+    gap: 36px !important;
+  }
+  .sec-register {
+    padding: 60px 18px 80px !important;
+    gap: 40px !important;
+  }
+  .sec-footer {
+    padding: 48px 18px !important;
+  }
+
+  .compare-card {
+    padding: 22px 18px !important;
+  }
+  .compare-tab-group {
+    width: 100% !important;
+    display: flex !important;
+  }
+  .compare-tab-group .tab-btn {
+    flex: 1 !important;
+    padding: 0 8px !important;
+    font-size: 13px !important;
+  }
+
+  .blk {
+    flex: 1 1 calc(50% - 6px) !important;
+    min-height: 52px !important;
+    font-size: 12px !important;
+    padding: 0 8px !important;
+  }
+
+  .card {
+    padding: 24px 20px !important;
+  }
+
+  .register-card-inner {
+    padding: 26px 18px !important;
+    gap: 22px !important;
+  }
+  .register-step-item {
+    padding: 12px 14px !important;
+    gap: 12px !important;
+    font-size: 14px !important;
+  }
+
+  .chip-item {
+    border-radius: 16px !important;
+    padding: 14px 16px !important;
+    font-size: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-btn-group {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .hero-btn-group .btn,
+  .hero-btn-group .ghost {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    min-height: 50px !important;
+  }
+
+  .countdown-row {
+    gap: 6px !important;
+  }
+  .countdown-box {
+    padding: 8px 3px !important;
+    border-radius: 10px !important;
+  }
+  .countdown-box .count-num {
+    font-size: clamp(16px, 4.6vw, 22px) !important;
+  }
+  .countdown-box .count-label {
+    font-size: 9px !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  .countdown-mini-row {
+    gap: 4px !important;
+  }
+  .countdown-mini-box {
+    padding: 6px 3px !important;
+    border-radius: 8px !important;
+  }
+  .countdown-mini-box .count-num {
+    font-size: 14px !important;
+  }
+  .countdown-mini-box .count-unit {
+    font-size: 10px !important;
+  }
+
+  .sec-hero {
+    padding: 44px 16px 52px !important;
+    gap: 32px !important;
+  }
+  .sec-explore,
+  .sec-bento,
+  .sec-agenda,
+  .sec-who,
+  .sec-about,
+  .sec-register {
+    padding: 50px 16px !important;
+    gap: 30px !important;
+  }
+  .sec-report {
+    padding: 64px 16px !important;
+    gap: 32px !important;
+  }
+  .sec-footer {
+    padding: 40px 16px !important;
+  }
+
+  .hero-badge {
+    font-size: 11px !important;
+    padding: 6px 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  .compare-card {
+    padding: 16px 12px !important;
+    gap: 20px !important;
+  }
+  .blk {
+    min-height: 46px !important;
+    font-size: 11px !important;
+    padding: 0 6px !important;
+  }
+}
+
 
